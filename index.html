@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Robot Control Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>ADSM Robot Control Dashboard</h1>
+          <div class="sub">Autonomous Object Avoidance & Manual Drive</div>
+        </div>
+      </div>
+      <div class="row">
+        <span class="label">Mode</span>
+        <div id="modeToggle" class="toggle" role="switch" aria-checked="false" tabindex="0" data-on="false" title="Toggle Auto / Manual">
+          <div class="knob"></div>
+        </div>
+        <span id="modeLabel" class="pill">Manual</span>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- Controls -->
+      <section class="card">
+        <h2>Manual Controls</h2>
+        <div class="label">Use arrow keys or tap buttons. Controls are <strong>disabled</strong> in Auto mode.</div>
+        <div class="pad">
+          <div></div>
+          <button id="btnUp" class="btn primary" title="Forward (W/↑)">▲</button>
+          <div></div>
+          <button id="btnLeft" class="btn primary" title="Left (A/←)">◀</button>
+          <button id="btnStop" class="btn danger" title="STOP (Space)">■</button>
+          <button id="btnRight" class="btn primary" title="Right (D/→)">▶</button>
+          <div></div>
+          <button id="btnDown" class="btn primary" title="Backward (S/↓)">▼</button>
+          <div></div>
+        </div>
+        <div class="row">
+          <!-- <button id="btnHorn" class="btn ghost">Horn</button>
+          <button id="btnLights" class="btn ghost">Lights</button> -->
+          <div class="spacer"></div>
+          <button id="btnCalib" class="btn">Calibrate Sensor</button>
+        </div>
+      </section>
+
+      <!-- Telemetry / Status -->
+      <section class="card">
+        <h2>Telemetry</h2>
+        <div class="status">
+          <div class="metric">
+            <div class="k">Distance</div>
+            <div class="v"><span id="distance">—</span> <span class="k">cm</span></div>
+          </div>
+          <div class="metric">
+            <div class="k">Connection</div>
+            <div class="v"><span id="connChip" class="chip bad">Disconnected</span></div>
+          </div>
+          <div class="metric">
+            <div class="k">Last Command</div>
+            <div class="v" id="lastCmd">—</div>
+          </div>
+          <div class="metric">
+            <div class="k">Mode</div>
+            <div class="v" id="modeMetric">Manual</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div>Tip: Use <code class="inline">↑ ↓ ← →</code> or <code class="inline">W A S D</code>. Space = STOP.</div>
+      <div id="fbStatus">Firebase: not initialized</div>
+    </footer>
+  </div>
+
+  <!-- App Logic -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
