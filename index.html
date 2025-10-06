@@ -1,88 +1,132 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Robot Control Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-theme="dark">
+
   <div class="container">
-    <header>
+    <header class="header">
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <h1>ADSM Robot Control Dashboard</h1>
-          <div class="sub">Autonomous Object Avoidance & Manual Drive</div>
+          <h1 class="brand__title">ADSM Robot Control</h1>
+          <div class="brand__subtitle">Autonomous & Manual Drive Interface</div>
         </div>
       </div>
-      <div class="row">
-        <span class="label">Mode</span>
-        <div id="modeToggle" class="toggle" role="switch" aria-checked="false" tabindex="0" data-on="false" title="Toggle Auto / Manual">
-          <div class="knob"></div>
+      <div class="header__actions">
+        <div class="mode-control">
+          <span class="label">Mode</span>
+          <div id="modeToggle" class="toggle" role="switch" aria-checked="false" tabindex="0" data-on="false" title="Toggle Auto/Manual">
+            <div class="toggle__knob"></div>
+          </div>
+          <span id="modeLabel" class="pill pill--mode">Manual</span>
         </div>
-        <span id="modeLabel" class="pill">Manual</span>
+        <button id="settingsBtn" class="btn btn--icon" title="Settings">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.829 15.222A6.992 6.992 0 0 1 17 19.829V21a1 1 0 0 1-2 0v-1.171A7.012 7.012 0 0 1 7.17 17H6a1 1 0 0 1 0-2h1.171A7.012 7.012 0 0 1 15 7.17V6a1 1 0 0 1 2 0v1.171A6.992 6.992 0 0 1 19.829 9H21a1 1 0 0 1 0 2h-1.171a7.012 7.012 0 0 1-2.222 4.051A6.98 6.98 0 0 1 19.829 15h1.171a1 1 0 1 1 0 2h-1.171ZM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/>
+          </svg>
+        </button>
       </div>
     </header>
 
-    <div class="grid">
-      <!-- Controls -->
-      <section class="card">
-        <h2>Manual Controls</h2>
-        <div class="label">Use arrow keys or tap buttons. Controls are <strong>disabled</strong> in Auto mode.</div>
-        <div class="pad">
+    <main class="grid">
+      <!-- Controls Section -->
+      <section class="card controls-card">
+        <h2 class="card__title">Manual Controls</h2>
+        <p class="card__subtitle">Use arrow keys or tap buttons. Controls are disabled in Auto mode.</p>
+        
+        <div class="control-pad">
           <div></div>
-          <button id="btnUp" class="btn primary" title="Forward (W/↑)">▲</button>
+          <button id="btnUp" class="btn btn--primary" title="Forward (W)">⬆️</button>
           <div></div>
-          <button id="btnLeft" class="btn primary" title="Left (A/←)">◀</button>
-          <button id="btnStop" class="btn danger" title="STOP (Space)">■</button>
-          <button id="btnRight" class="btn primary" title="Right (D/→)">▶</button>
+          
+          <button id="btnLeft" class="btn btn--primary" title="Left (A)">⬅️</button>
+          <button id="btnStop" class="btn btn--danger" title="STOP (Space)">⏹️</button>
+          <button id="btnRight" class="btn btn--primary" title="Right (D)">➡️</button>
+          
           <div></div>
-          <button id="btnDown" class="btn primary" title="Backward (S/↓)">▼</button>
+          <button id="btnDown" class="btn btn--primary" title="Backward (S)">⬇️</button>
           <div></div>
-        </div>
-        <div class="row">
-          <!-- <button id="btnHorn" class="btn ghost">Horn</button>
-          <button id="btnLights" class="btn ghost">Lights</button> -->
-          <div class="spacer"></div>
-          <button id="btnCalib" class="btn">Calibrate Sensor</button>
         </div>
       </section>
 
-      <!-- Telemetry / Status -->
-      <section class="card">
-        <h2>Telemetry</h2>
-        <div class="status">
+      <!-- Telemetry Section -->
+      <section class="card telemetry-card">
+        <h2 class="card__title">Telemetry</h2>
+        
+        <div class="telemetry-grid">
           <div class="metric">
-            <div class="k">Distance</div>
-            <div class="v"><span id="distance">—</span> <span class="k">cm</span></div>
+            <div class="metric__label">Distance</div>
+            <div class="metric__value"><span id="distance">—</span> cm</div>
           </div>
+          
           <div class="metric">
-            <div class="k">Connection</div>
-            <div class="v"><span id="connChip" class="chip bad">Disconnected</span></div>
+            <div class="metric__label">Connection</div>
+            <div class="metric__value"><span id="connChip" class="chip chip--bad">Disconnected</span></div>
           </div>
+          
           <div class="metric">
-            <div class="k">Last Command</div>
-            <div class="v" id="lastCmd">—</div>
+            <div class="metric__label">Last Command</div>
+            <div class="metric__value" id="lastCmd">—</div>
           </div>
+          
           <div class="metric">
-            <div class="k">Mode</div>
-            <div class="v" id="modeMetric">Manual</div>
+            <div class="metric__label">Mode</div>
+            <div class="metric__value" id="modeMetric">Manual</div>
           </div>
         </div>
       </section>
-    </div>
+    </main>
 
-    <footer>
-      <div>Tip: Use <code class="inline">↑ ↓ ← →</code> or <code class="inline">W A S D</code>. Space = STOP.</div>
-      <div id="fbStatus">Firebase: not initialized</div>
+    <footer class="footer">
+      <div class="footer__tip">
+        Tip: Use <code class="inline-code">↑ ← ↓ →</code> or <code class="inline-code">W A S D</code>. <code class="inline-code">Space</code> = STOP.
+      </div>
+      <div id="fbStatus" class="footer__status">Firebase: not initialized</div>
     </footer>
   </div>
 
-  <!-- App Logic -->
+  <!-- Theme Panel -->
+  <div id="themePanel" class="theme-panel">
+    <div class="theme-panel__header">
+      <h3 class="theme-panel__title">Settings</h3>
+      <button id="closeThemePanelBtn" class="btn btn--icon" title="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="theme-panel__content">
+      <div class="setting-group">
+        <label class="setting-group__label">Theme</label>
+        <div class="theme-switcher">
+          <button class="theme-switcher__btn" data-theme-set="light">Light</button>
+          <button class="theme-switcher__btn" data-theme-set="dark">Dark</button>
+        </div>
+      </div>
+      
+      <div class="setting-group">
+        <label class="setting-group__label">Accent Color</label>
+        <div id="colorSwatches" class="color-swatches">
+          <button class="color-swatch" data-color="#4f46e5" style="--swatch-color: #4f46e5"></button>
+          <button class="color-swatch" data-color="#0ea5e9" style="--swatch-color: #0ea5e9"></button>
+          <button class="color-swatch" data-color="#10b981" style="--swatch-color: #10b981"></button>
+          <button class="color-swatch" data-color="#e11d48" style="--swatch-color: #e11d48"></button>
+          <button class="color-swatch" data-color="#f59e0b" style="--swatch-color: #f59e0b"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="themePanelOverlay" class="theme-panel-overlay"></div>
+
   <script type="module" src="app.js"></script>
 </body>
 </html>
